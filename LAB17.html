@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laboratorio 17</title>
+
+  <style>
+    :root{
+      --fondo:#f7efe6;
+      --card:#fffdfa;
+      --border:#e6dccf;
+      --titulo:#5b3b2e;
+      --accent:#8a5a3c;
+      --texto:#2d2b26;
+      --muted:#6b5b50;
+    }
+
+    body{
+      background:var(--fondo);
+      color:var(--texto);
+      font-family:Arial, Helvetica, sans-serif;
+      margin:24px;
+      line-height:1.45;
+    }
+
+    header{ margin-bottom:18px; }
+    h1{ color:var(--titulo); margin:0 0 6px 0; font-size:24px; }
+    p.intro{ margin:0; color:var(--muted); font-size:14px; }
+
+    section{
+      background:var(--card);
+      border:1px solid var(--border);
+      padding:14px;
+      margin-bottom:14px;
+      border-radius:8px;
+      box-shadow:0 2px 6px rgba(45,43,38,0.06);
+    }
+
+    h2{ margin:0 0 8px 0; font-size:16px; color:var(--accent); }
+
+    .controls{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+
+    button{
+      padding:8px 12px;
+      border-radius:6px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    input[type="text"], input[type="number"]{
+      padding:8px 10px;
+      border-radius:6px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--texto);
+    }
+
+    pre.output{
+      background:#faf6f2;
+      border:1px solid var(--border);
+      padding:10px;
+      border-radius:6px;
+      margin-top:10px;
+      white-space:pre-wrap;
+      color:var(--texto);
+      min-height:28px;
+    }
+
+    small.note{ display:block; margin-top:8px; color:var(--muted); font-size:13px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Laboratorio 17 - Manejo de errores, callbacks, promesas y async/await</h1>
+    <p class="intro">Autora: Brigitte Karolay Velasquez Puma</p>
+  </header>
+
+  <!-- EJERCICIO 3 -->
+  <section id="sec-ej3">
+    <h2>Ejercicio 3</h2>
+    <div class="controls">
+      <button id="btn-ej3">Provocar error</button>
+    </div>
+    <pre id="out-ej3" class="output"></pre>
+    <small class="note">Provocar un error de cualquier tipo e imprimir su mensaje.</small>
+  </section>
+
+  <!-- EJERCICIO 4 -->
+  <section id="sec-ej4">
+    <h2>Ejercicio 4</h2>
+    <div class="controls">
+      <button id="btn-ej4">Generar SyntaxError</button>
+    </div>
+    <pre id="out-ej4" class="output"></pre>
+ En el catch mostrar e.name y e.message.</small>    <small class="note">Usar JSON.parse con texto inválido.
+  </section>
+
+  <!-- EJERCICIO 5 -->
+  <section id="sec-ej5">
+    <h2>Ejercicio 5</h2>
+    <div class="controls">
+      <button id="btn-ej5">Forzar error en console.log</button>
+    </div>
+    <pre id="out-ej5" class="output"></pre>
+    <small class="note">Que console.log genere un error; en catch imprimir "falló"; en finally imprimir "siempre se ejecuta".</small>
+  </section>
+
+  <!-- EJERCICIO 6 -->
+  <section id="sec-ej6">
+    <h2>Ejercicio 6</h2>
+    <div class="controls">
+      <input id="inp-ej6" type="text" placeholder="Ingresar edad" />
+      <button id="btn-ej6">Validar edad</button>
+    </div>
+    <pre id="out-ej6" class="output"></pre>
+    <small class="note">Función validarEdad(edad) que lance Error si edad no es válida.</small>
+  </section>
+
+  <!-- EJERCICIO 7 -->
+  <section id="sec-ej7">
+    <h2>Ejercicio 7</h2>
+    <div class="controls">
+      <button id="btn-ej7">Provocar TypeError</button>
+    </div>
+    <pre id="out-ej7" class="output"></pre>
+    <small class="note">Dentro de try provocar TypeError y en catch verificar instanceof.</small>
+  </section>
+
+  <!-- EJERCICIO 8 -->
+  <section id="sec-ej8">
+    <h2>Ejercicio 8</h2>
+    <div class="controls">
+      <button id="btn-ej8">Comprobar propagacion de errore</button>
+    </div>
+    <pre id="out-ej8" class="output"></pre>
+    <small class="note">Nivel 2 atrapa y relanza; nivel 1 atrapa y relanza; catch externo recibe e imprime.</small>
+  </section>
+
+  <!-- EJERCICIO 9 -->
+  <section id="sec-ej9">
+    <h2>Ejercicio 9</h2>
+    <div class="controls">
+      <button id="btn-ej9">Cargar mensaje</button>
+    </div>
+    <pre id="out-ej9" class="output"></pre>
+    <small class="note">cargarMensaje(callback) espera 1s y llama callback("Mensaje cargado").</small>
+  </section>
+
+  <!-- EJERCICIO 10 -->
+  <section id="sec-ej10">
+    <h2>Ejercicio 10</h2>
+    <div class="controls">
+      <button id="btn-ej10">Cargar usuario</button>
+    </div>
+    <pre id="out-ej10" class="output"></pre>
+    <small class="note">cargarUsuario(callback): espera 800-1500 ms y llama callback(usuario).</small>
+  </section>
+
+  <!-- EJERCICIO 11 -->
+  <section id="sec-ej11">
+    <h2>Ejercicio 11</h2>
+    <div class="controls">
+      <input id="inp-a-ej11" type="number" placeholder="a" />
+      <input id="inp-b-ej11" type="number" placeholder="b" />
+      <button id="btn-ej11">Dividir async (callback)</button>
+    </div>
+    <pre id="out-ej11" class="output"></pre>
+    <small class="note">dividirAsync(a,b,callback) espera 1.5s; si b===0 callback(new Error(...),null)</small>
+  </section>
+
+  <!-- EJERCICIO 12 -->
+  <section id="sec-ej12">
+    <h2>Ejercicio 12</h2>
+    <div class="controls">
+      <input id="inp-lista-ej12" type="text" placeholder="Numeros separados por comas" style="min-width:300px;" />
+      <button id="btn-ej12">Procesar lista</button>
+    </div>
+    <pre id="out-ej12" class="output"></pre>
+    <small class="note">procesarLista(arreglo, callback): por cada numero esperar 500-1500 ms y al final llamar callback("Proceso completado").</small>
+  </section>
+
+  <!-- EJERCICIO 13 -->
+  <section id="sec-ej13">
+    <h2>Ejercicio 13</h2>
+    <div class="controls">
+      <button id="btn-ej13">Ej9 con promesas</button>
+    </div>
+    <pre id="out-ej13" class="output"></pre>
+    <small class="note">Versión de cargarMensaje usando promesas.</small>
+  </section>
+
+  <!-- EJERCICIO 14 -->
+  <section id="sec-ej14">
+    <h2>Ejercicio 14</h2>
+    <div class="controls">
+      <button id="btn-ej14">Ej10 con promesas</button>
+    </div>
+    <pre id="out-ej14" class="output"></pre>
+    <small class="note">Versión de cargarUsuario usando promesas.</small>
+  </section>
+
+  <!-- EJERCICIO 15 -->
+  <section id="sec-ej15">
+    <h2>Ejercicio 15</h2>
+    <div class="controls">
+      <input id="inp-a-ej15" type="number" placeholder="a" />
+      <input id="inp-b-ej15" type="number" placeholder="b" />
+      <button id="btn-ej15">Ej11 con promesas</button>
+    </div>
+    <pre id="out-ej15" class="output"></pre>
+    <small class="note">Versión de dividirAsync usando promesas.</small>
+  </section>
+
+  <!-- EJERCICIO 16 -->
+  <section id="sec-ej16">
+    <h2>Ejercicio 16</h2>
+    <div class="controls">
+      <input id="inp-lista-ej16" type="text" placeholder="Numeros separados por comas" style="min-width:300px;" />
+      <button id="btn-ej16">Ej12 con promesas</button>
+    </div>
+    <pre id="out-ej16" class="output"></pre>
+    <small class="note">Versión de procesarLista usando promesas.</small>
+  </section>
+
+  <!-- EJERCICIO 17 -->
+  <section id="sec-ej17">
+    <h2>Ejercicio 17</h2>
+    <div class="controls">
+      <button id="btn-ej17">Ej9 con async/await</button>
+    </div>
+    <pre id="out-ej17" class="output"></pre>
+    <small class="note">cargarMensaje con async/await.</small>
+  </section>
+
+  <!-- EJERCICIO 18 -->
+  <section id="sec-ej18">
+    <h2>Ejercicio 18</h2>
+    <div class="controls">
+      <button id="btn-ej18">Ej10 con async/await</button>
+    </div>
+    <pre id="out-ej18" class="output"></pre>
+    <small class="note">cargarUsuario con async/await.</small>
+  </section>
+
+  <!-- EJERCICIO 19 -->
+  <section id="sec-ej19">
+    <h2>Ejercicio 19</h2>
+    <div class="controls">
+      <input id="inp-a-ej19" type="number" placeholder="a" />
+      <input id="inp-b-ej19" type="number" placeholder="b" />
+      <button id="btn-ej19">Ej11 con async/await</button>
+    </div>
+    <pre id="out-ej19" class="output"></pre>
+    <small class="note">dividirAsync con async/await.</small>
+  </section>
+
+  <!-- EJERCICIO 20 -->
+  <section id="sec-ej20">
+    <h2>Ejercicio 20</h2>
+    <div class="controls">
+      <input id="inp-lista-ej20" type="text" placeholder="Numeros separados por comas" style="min-width:300px;" />
+      <button id="btn-ej20">Ej12 con async/await</button>
+    </div>
+    <pre id="out-ej20" class="output"></pre>
+    <small class="note">procesarLista con async/await.</small>
+  </section>
+
+  <script src="LAB17.js"></script>
+</body>
+</html>
